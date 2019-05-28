@@ -1,21 +1,17 @@
 import React, { Component } from "react";
-import "../../assets/style/App.css";
+import { Link } from "react-router-dom";
 
-class HomePage extends Component {
-  handleClick() {
-    alert("111");
+export default class Home extends Component {
+  goLists() {
+    this.props.history.push({pathname:'/Lists', params:{test:'aaa'}})
   }
   render() {
     return (
       <div>
-        <div>
-          <h1>HomePage</h1>
-          <h2>It is {this.props.date}.</h2>
-          <button onClick={e => this.handleClick(e)}>Click me</button>
-        </div>
+        {/* <Link to="/Lists">去列表页</Link> */}
+        <button onClick={this.goLists.bind(this)}>去列表页</button>
+        <p>{JSON.stringify(this.props.history.location.params)}</p>
       </div>
     );
   }
 }
-
-export default HomePage;
