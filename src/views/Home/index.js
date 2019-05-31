@@ -1,16 +1,21 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import HomeDetail from "./HomeDetail/index";
 
 export default class Home extends Component {
-  goLists() {
-    this.props.history.push({pathname:'/Lists', params:{test:'aaa'}})
-  }
   render() {
     return (
       <div>
-        {/* <Link to="/Lists">去列表页</Link> */}
-        <button onClick={this.goLists.bind(this)}>去列表页</button>
-        <p>{JSON.stringify(this.props.history.location.params)}</p>
+        <Router basename="/Home">
+          <h1>Home</h1>
+          <Link to={{ pathname: "/HomeDetail", params: { test: "aaa" } }}>
+            首页详情页
+          </Link>
+
+          <Switch>
+            <Route path="/HomeDetail" component={HomeDetail} />
+          </Switch>
+        </Router>
       </div>
     );
   }
