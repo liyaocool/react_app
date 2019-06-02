@@ -131,9 +131,14 @@ class SiderMenu extends Component {
   }
 }
 export default class Index extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
-    const { match } = this.props;
-    console.log(match);
     return (
       <Layout>
         <Header className="header">
@@ -167,7 +172,7 @@ export default class Index extends Component {
               <Sider width={200} style={{ background: "#fff" }}>
                 <SiderMenu />
               </Sider>
-              <Content style={{ padding: "0 24px", minHeight: 280 }}>
+              <Content style={{ padding: "0 24px", minHeight: 500 }}>
                 <Route path="/Home" component={Home} />
                 <Route path="/MyPlugin" component={MyPlugin} />
                 <Route path="/MyStyle" component={MyStyle} />

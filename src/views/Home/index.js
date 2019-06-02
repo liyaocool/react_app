@@ -2,6 +2,13 @@ import React, { Component } from "react";
 // import { Button } from "antd";
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
     return (
       <div>
