@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-class MyPluginDetail extends Component {
+class NotFound extends Component {
   render() {
     return (
       <div>
-        <h1>MyPluginDetail</h1>
+        <h1>404! Not FOUND!</h1>
       </div>
     );
   }
 }
 
-export default MyPluginDetail;
+export default NotFound;

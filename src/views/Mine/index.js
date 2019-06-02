@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-class MyPluginDetail extends Component {
+class Mine extends Component {
   render() {
     return (
       <div>
-        <h1>MyPluginDetail</h1>
+        <h1>我的-页面</h1>
       </div>
     );
   }
 }
 
-export default MyPluginDetail;
+export default Mine;

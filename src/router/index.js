@@ -1,20 +1,26 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Home from "../views/Home/index";
-import MyPlugin from "../views/MyPlugin/index";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
+import Index from "../views/Index/index";
+import User from "../views/User/index";
+import NotFound from "../views/NotFound/index";
 
 export default class index extends Component {
   render() {
     return (
       <div>
         <Router>
-          <div>
-            <Link to={{ pathname: "/"}}>首页</Link>
-            <Link to={{ pathname: "/MyPlugin"}}>插件</Link>
-          </div>
           <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/MyPlugin" component={MyPlugin} />
+            <Route path="/Index" component={Index} />
+            <Route path="/User" component={User} />
+            <Route path="/404" component={NotFound} />
+            {/* 'exact'精确匹配 '/'时重定向 '/Index' */}
+            <Redirect exact from="/" to="/Index/Home" />
+            <Redirect from="/*" to="/404" />
           </Switch>
         </Router>
       </div>

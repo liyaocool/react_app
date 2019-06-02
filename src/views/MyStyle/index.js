@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-class MyPluginDetail extends Component {
+class MyStyle extends Component {
   render() {
     return (
       <div>
-        <h1>MyPluginDetail</h1>
+        <h1>样式-页面</h1>
       </div>
     );
   }
 }
 
-export default MyPluginDetail;
+export default MyStyle;
