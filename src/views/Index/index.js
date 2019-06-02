@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  NavLink
+} from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 
 import Home from "../Home/index";
@@ -10,6 +15,121 @@ import Mine from "../Mine/index";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
+//列表菜单项
+const FirstMenu = [
+  {
+    key: "sub1",
+    title: "首页",
+    icon: "home",
+    SecondMenu: [
+      {
+        key: "1",
+        title: "首页概览",
+        icon: "pie-chart",
+        path: "/Home"
+      },
+      {
+        key: "2",
+        title: "首页其他",
+        icon: "tag-o",
+        path: "/Home"
+      }
+    ]
+  },
+  {
+    key: "sub2",
+    title: "插件",
+    icon: "pushpin-o",
+    SecondMenu: [
+      {
+        key: "3",
+        title: "插件概览",
+        icon: "pie-chart",
+        path: "/MyPlugin"
+      },
+      {
+        key: "4",
+        title: "插件其他",
+        icon: "tag-o",
+        path: "/MyPlugin"
+      }
+    ]
+  },
+  {
+    key: "sub3",
+    title: "样式",
+    icon: "smile-o",
+    SecondMenu: [
+      {
+        key: "5",
+        title: "样式概览",
+        icon: "pie-chart",
+        path: "/MyStyle"
+      },
+      {
+        key: "6",
+        title: "样式其他",
+        icon: "tag-o",
+        path: "/MyStyle"
+      }
+    ]
+  },
+  {
+    key: "sub4",
+    title: "我的",
+    icon: "rocket",
+    SecondMenu: [
+      {
+        key: "7",
+        title: "我的概览",
+        icon: "pie-chart",
+        path: "/Mine"
+      },
+      {
+        key: "8",
+        title: "我的其他",
+        icon: "tag-o",
+        path: "/Mine"
+      }
+    ]
+  }
+];
+class SiderMenu extends Component {
+  render() {
+    // FirstItem 一级菜单遍历
+    const MenuItem = FirstMenu.map(FirstItem => (
+      <SubMenu
+        key={FirstItem.key}
+        title={
+          <span>
+            <Icon type={FirstItem.icon} />
+            {FirstItem.title}
+          </span>
+        }
+      >
+        {/*  SecondItem 二级菜单遍历 */}
+        {FirstItem.SecondMenu.map(SecondItem => (
+          <Menu.Item key={SecondItem.key}>
+            <NavLink to={{ pathname: SecondItem.path }}>
+              <Icon type={SecondItem.icon} />
+              {SecondItem.title}
+            </NavLink>
+          </Menu.Item>
+        ))}
+      </SubMenu>
+    ));
+    return (
+      <Menu
+        mode="inline"
+        defaultOpenKeys={["sub1"]}
+        defaultSelectedKeys={["1"]}
+        style={{ height: "100%" }}
+      >
+        {MenuItem}
+      </Menu>
+    );
+  }
+}
 export default class Index extends Component {
   render() {
     const { match } = this.props;
@@ -26,7 +146,7 @@ export default class Index extends Component {
           >
             <Menu.Item key="1">
               <Link to={{ pathname: "/", params: { abc: "abc" } }}>
-                REACT DOME
+                React Admin
               </Link>
             </Menu.Item>
             <Menu.Item key="2">
@@ -43,51 +163,9 @@ export default class Index extends Component {
           </Breadcrumb>
 
           <Layout style={{ padding: "24px 0", background: "#fff" }}>
-            <Router basename='/Index'>
+            <Router basename="/Index">
               <Sider width={200} style={{ background: "#fff" }}>
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={["1"]}
-                  defaultOpenKeys={["sub1"]}
-                  style={{ height: "100%" }}
-                >
-                  <SubMenu
-                    key="sub1"
-                    title={
-                      <span>
-                        <Icon type="user" />
-                        首页
-                      </span>
-                    }
-                  >
-                    <Menu.Item key="1">
-                      <NavLink
-                        to={{ pathname: "/Home", params: { abc: "abc" } }}
-                      >
-                        首页概览
-                      </NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="2">首页其他</Menu.Item>
-                  </SubMenu>
-                  <SubMenu
-                    key="sub2"
-                    title={
-                      <span>
-                        <Icon type="user" />
-                        插件
-                      </span>
-                    }
-                  >
-                    <Menu.Item key="3">
-                      <NavLink
-                        to={{ pathname: "/MyPlugin", params: { abc: "abc" } }}
-                      >
-                        插件概览
-                      </NavLink>
-                    </Menu.Item>
-                    <Menu.Item key="4">插件其他</Menu.Item>
-                  </SubMenu>
-                </Menu>
+                <SiderMenu />
               </Sider>
               <Content style={{ padding: "0 24px", minHeight: 280 }}>
                 <Route path="/Home" component={Home} />
