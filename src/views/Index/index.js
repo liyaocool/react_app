@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Route,
+  Switch,
   Link,
-  NavLink
+  NavLink,
+  withRouter
 } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 
@@ -15,6 +17,12 @@ import Mine from "../Mine/index";
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
+const breadcrumbNameMap = {
+  "/Index": "首页",
+  "/Index/MyPlugin": "插件",
+  "/Index/MyStyle": "样式",
+  "/Index/Mine": "我的"
+};
 //列表菜单项
 const FirstMenu = [
   {
@@ -26,13 +34,13 @@ const FirstMenu = [
         key: "1",
         title: "首页概览",
         icon: "pie-chart",
-        path: "/Home"
+        path: "/Index"
       },
       {
         key: "2",
         title: "首页其他",
         icon: "tag-o",
-        path: "/Home"
+        path: "/Index/Home"
       }
     ]
   },
@@ -45,13 +53,13 @@ const FirstMenu = [
         key: "3",
         title: "插件概览",
         icon: "pie-chart",
-        path: "/MyPlugin"
+        path: "/Index/MyPlugin"
       },
       {
         key: "4",
         title: "插件其他",
         icon: "tag-o",
-        path: "/MyPlugin"
+        path: "/Index/MyPlugin"
       }
     ]
   },
@@ -64,13 +72,13 @@ const FirstMenu = [
         key: "5",
         title: "样式概览",
         icon: "pie-chart",
-        path: "/MyStyle"
+        path: "/Index/MyStyle"
       },
       {
         key: "6",
         title: "样式其他",
         icon: "tag-o",
-        path: "/MyStyle"
+        path: "/Index/MyStyle"
       }
     ]
   },
@@ -83,13 +91,13 @@ const FirstMenu = [
         key: "7",
         title: "我的概览",
         icon: "pie-chart",
-        path: "/Mine"
+        path: "/Index/Mine"
       },
       {
         key: "8",
         title: "我的其他",
         icon: "tag-o",
-        path: "/Mine"
+        path: "/Index/Mine"
       }
     ]
   }
@@ -130,7 +138,7 @@ class SiderMenu extends Component {
     );
   }
 }
-export default class Index extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -139,6 +147,18 @@ export default class Index extends Component {
     console.log(this.props);
   }
   render() {
+    const { location } = this.props;
+    console.log(location.pathname);
+    const pathSnippets = location.pathname.split("/").filter(i => i);
+    console.log(pathSnippets);
+    const breadcrumbItems = pathSnippets.map((_, index) => {
+      const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+      return (
+        <Breadcrumb.Item key={url}>
+          <Link to={url}>{breadcrumbNameMap[url]}</Link>
+        </Breadcrumb.Item>
+      );
+    });
     return (
       <Layout>
         <Header className="header">
@@ -151,7 +171,7 @@ export default class Index extends Component {
           >
             <Menu.Item key="1">
               <Link to={{ pathname: "/", params: { abc: "abc" } }}>
-                React Admin
+                React Dome
               </Link>
             </Menu.Item>
             <Menu.Item key="2">
@@ -161,26 +181,27 @@ export default class Index extends Component {
             </Menu.Item>
           </Menu>
         </Header>
+
         <Content style={{ padding: "0 50px" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
+            {breadcrumbItems}
           </Breadcrumb>
 
           <Layout style={{ padding: "24px 0", background: "#fff" }}>
-            <Router basename="/Index">
-              <Sider width={200} style={{ background: "#fff" }}>
-                <SiderMenu />
-              </Sider>
-              <Content style={{ padding: "0 24px", minHeight: 500 }}>
-                <Route path="/Home" component={Home} />
-                <Route path="/MyPlugin" component={MyPlugin} />
-                <Route path="/MyStyle" component={MyStyle} />
-                <Route path="/Mine" component={Mine} />
-              </Content>
-            </Router>
+            <Sider width={200} style={{ background: "#fff" }}>
+              <SiderMenu />
+            </Sider>
+            <Content style={{ padding: "0 24px", minHeight: 500 }}>
+              {/* <Switch> */}
+                <Route exact path="/Index" component={Home} />
+                <Route path="/Index/MyPlugin" component={MyPlugin} />
+                <Route path="/Index/MyStyle" component={MyStyle} />
+                <Route path="/Index/Mine" component={Mine} />
+              {/* </Switch> */}
+            </Content>
           </Layout>
         </Content>
+
         <Footer style={{ textAlign: "center" }}>
           Design by{" "}
           <a
@@ -195,3 +216,6 @@ export default class Index extends Component {
     );
   }
 }
+
+const IndexWithRouter = withRouter(Index);
+export default IndexWithRouter;

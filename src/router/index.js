@@ -19,7 +19,7 @@ export default class index extends Component {
             <Route path="/User" component={User} />
             <Route path="/404" component={NotFound} />
             {/* 'exact'精确匹配 '/'时重定向 '/Index' */}
-            <Redirect exact from="/" to="/Index/Home" />
+            <Redirect exact from="/" to="/Index" />
             <Redirect from="/*" to="/404" />
           </Switch>
         </Router>

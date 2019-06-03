@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 
 class MyPlugin extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  componentDidMount() {
+    console.log(this.props);
+  }
   render() {
     return (
       <div>
