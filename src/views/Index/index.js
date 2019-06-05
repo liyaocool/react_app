@@ -1,12 +1,5 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  NavLink,
-  withRouter
-} from "react-router-dom";
+import { Route, Link, NavLink, withRouter } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 
 import Home from "../Home/index";
@@ -193,10 +186,10 @@ class Index extends Component {
             </Sider>
             <Content style={{ padding: "0 24px", minHeight: 500 }}>
               {/* <Switch> */}
-                <Route exact path="/Index" component={Home} />
-                <Route path="/Index/MyPlugin" component={MyPlugin} />
-                <Route path="/Index/MyStyle" component={MyStyle} />
-                <Route path="/Index/Mine" component={Mine} />
+              <Route exact path="/Index" component={Home} />
+              <Route path="/Index/MyPlugin" component={MyPlugin} />
+              <Route path="/Index/MyStyle" component={MyStyle} />
+              <Route path="/Index/Mine" component={Mine} />
               {/* </Switch> */}
             </Content>
           </Layout>

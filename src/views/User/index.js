@@ -1,20 +1,12 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class User extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  componentDidMount() {
-    console.log(this.props);
-  }
-  render() {
-    return (
-      <div>
-        <h1>User</h1>
-      </div>
-    );
-  }
+export default function User(props) {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <text>1{process.env.REACT_APP_ABC}</text>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>递增</button>
+    </div>
+  );
 }
-
-export default User;
