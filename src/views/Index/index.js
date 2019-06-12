@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Route, Link, NavLink, withRouter } from "react-router-dom";
+import { Route, Link, NavLink, withRouter, Switch } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 
 import Home from "../Home/index";
 import MyPlugin from "../MyPlugin/index";
 import MyStyle from "../MyStyle/index";
 import Mine from "../Mine/index";
+import MyDemo from "../Mine/MyDemo/index";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
@@ -14,7 +15,8 @@ const breadcrumbNameMap = {
   "/Index": "首页",
   "/Index/MyPlugin": "插件",
   "/Index/MyStyle": "样式",
-  "/Index/Mine": "我的"
+  "/Index/Mine": "我的",
+  "/Index/Mine/MyDemo": "示例"
 };
 //列表菜单项
 const FirstMenu = [
@@ -33,7 +35,7 @@ const FirstMenu = [
         key: "2",
         title: "首页其他",
         icon: "tag-o",
-        path: "/Index/Home"
+        path: "/Index"
       }
     ]
   },
@@ -88,9 +90,9 @@ const FirstMenu = [
       },
       {
         key: "8",
-        title: "我的其他",
+        title: "示例",
         icon: "tag-o",
-        path: "/Index/Mine"
+        path: "/Index/Mine/MyDemo"
       }
     ]
   }
@@ -187,9 +189,10 @@ class Index extends Component {
             <Content style={{ padding: "0 24px", minHeight: 500 }}>
               {/* <Switch> */}
               <Route exact path="/Index" component={Home} />
-              <Route path="/Index/MyPlugin" component={MyPlugin} />
-              <Route path="/Index/MyStyle" component={MyStyle} />
-              <Route path="/Index/Mine" component={Mine} />
+              <Route exact path="/Index/MyPlugin" component={MyPlugin} />
+              <Route exact path="/Index/MyStyle" component={MyStyle} />
+              <Route exact path="/Index/Mine" component={Mine} />
+              <Route exact path="/Index/Mine/MyDemo" component={MyDemo} />
               {/* </Switch> */}
             </Content>
           </Layout>
