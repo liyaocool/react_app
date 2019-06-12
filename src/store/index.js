@@ -1,15 +1,16 @@
-import { createStore } from 'redux';
+import { createStore } from "redux";
 
-function counter(count = 0, action) {
-    switch (action.type) {
-    case 'INCREMENT':
-      return count + 1;
-    case 'DECREMENT':
-      return count - 1;
+function counter(state = { count: 0 }, action) {
+  let count = state.count;
+  switch (action.type) {
+    case "INCREMENT":
+      return { count: count + 1 };
+    case "DECREMENT":
+      return { count: count - 1 };
     default:
-      return count;
-    }
+      return state;
   }
+}
 
 const store = createStore(counter);
-export default store
+export default store;

@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
+import {connect} from 'react-redux'
 import "./index.css";
+import {INCREMENT} from '../../../store/action/index.js'
 // import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 function MyDemo(props) {
@@ -12,6 +14,7 @@ function MyDemo(props) {
     }
   ]);
   const myInput = useRef(null);
+
   const addList = () => {
     let obj = {
       title: myInput.current.value
@@ -40,11 +43,26 @@ function MyDemo(props) {
       <input ref={myInput} />
       <button onClick={addList}>增加</button>
       <h1>示例列表</h1>
+      <h1>{props.count}</h1>
+      <button onClick={props.onIncreaseClick}>增加store</button>
       <div>
         <ul>{listItem}</ul>
       </div>
     </>
   );
 }
-
+function mapStateToProps(state) {
+  return {
+    count: state.count
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    onIncreaseClick: () => dispatch(INCREMENT)
+  }
+}
+MyDemo = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyDemo)
 export default MyDemo;

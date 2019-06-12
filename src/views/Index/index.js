@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link, NavLink, withRouter, Switch } from "react-router-dom";
+import { Route, Link, NavLink, withRouter } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
 
 import Home from "../Home/index";
