@@ -1,13 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Link, NavLink, withRouter } from "react-router-dom";
 import { Layout, Menu, Breadcrumb, Icon } from "antd";
-
 import Home from "../Home/index";
 import MyPlugin from "../MyPlugin/index";
 import MyStyle from "../MyStyle/index";
 import Mine from "../Mine/index";
 import MyDemo from "../Mine/MyDemo/index";
-
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -97,120 +95,103 @@ const FirstMenu = [
     ]
   }
 ];
-class SiderMenu extends Component {
-  render() {
-    // FirstItem 一级菜单遍历
-    const MenuItem = FirstMenu.map(FirstItem => (
-      <SubMenu
-        key={FirstItem.key}
-        title={
-          <span>
-            <Icon type={FirstItem.icon} />
-            {FirstItem.title}
-          </span>
-        }
-      >
-        {/*  SecondItem 二级菜单遍历 */}
-        {FirstItem.SecondMenu.map(SecondItem => (
-          <Menu.Item key={SecondItem.key}>
-            <NavLink to={{ pathname: SecondItem.path }}>
-              <Icon type={SecondItem.icon} />
-              {SecondItem.title}
-            </NavLink>
-          </Menu.Item>
-        ))}
-      </SubMenu>
-    ));
-    return (
-      <Menu
-        mode="inline"
-        defaultOpenKeys={["sub1"]}
-        defaultSelectedKeys={["1"]}
-        style={{ height: "100%" }}
-      >
-        {MenuItem}
-      </Menu>
-    );
-  }
+function SideMenu(props) {
+  // FirstItem 一级菜单遍历
+  const MenuItem = FirstMenu.map(FirstItem => (
+    <SubMenu
+      key={FirstItem.key}
+      title={
+        <span>
+          <Icon type={FirstItem.icon} />
+          {FirstItem.title}
+        </span>
+      }
+    >
+      {/*  SecondItem 二级菜单遍历 */}
+      {FirstItem.SecondMenu.map(SecondItem => (
+        <Menu.Item key={SecondItem.key}>
+          <NavLink to={{ pathname: SecondItem.path }}>
+            <Icon type={SecondItem.icon} />
+            {SecondItem.title}
+          </NavLink>
+        </Menu.Item>
+      ))}
+    </SubMenu>
+  ));
+  return (
+    <Menu
+      mode="inline"
+      defaultOpenKeys={["sub1"]}
+      defaultSelectedKeys={["1"]}
+      style={{ height: "100%" }}
+    >
+      {MenuItem}
+    </Menu>
+  );
 }
-class Index extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  componentDidMount() {
-    console.log(this.props);
-  }
-  render() {
-    const { location } = this.props;
-    console.log(location.pathname);
-    const pathSnippets = location.pathname.split("/").filter(i => i);
-    console.log(pathSnippets);
-    const breadcrumbItems = pathSnippets.map((_, index) => {
-      const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
-      return (
-        <Breadcrumb.Item key={url}>
-          <Link to={url}>{breadcrumbNameMap[url]}</Link>
-        </Breadcrumb.Item>
-      );
-    });
+function Index(props) {
+  const { location } = props;
+  const pathSnippets = location.pathname.split("/").filter(i => i);
+  const breadcrumbItems = pathSnippets.map((_, index) => {
+    const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
     return (
-      <Layout>
-        <Header className="header">
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["1"]}
-            style={{ lineHeight: "64px" }}
-          >
-            <Menu.Item key="1">
-              <Link to={{ pathname: "/", params: { abc: "abc" } }}>
-                React Dome
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to={{ pathname: "/User", params: { abc: "abc" } }}>
-                用户
-              </Link>
-            </Menu.Item>
-          </Menu>
-        </Header>
-
-        <Content style={{ padding: "0 50px" }}>
-          <Breadcrumb style={{ margin: "16px 0" }}>
-            {breadcrumbItems}
-          </Breadcrumb>
-
-          <Layout style={{ padding: "24px 0", background: "#fff" }}>
-            <Sider width={200} style={{ background: "#fff" }}>
-              <SiderMenu />
-            </Sider>
-            <Content style={{ padding: "0 24px", minHeight: 500 }}>
-              {/* <Switch> */}
-              <Route exact path="/Index" component={Home} />
-              <Route exact path="/Index/MyPlugin" component={MyPlugin} />
-              <Route exact path="/Index/MyStyle" component={MyStyle} />
-              <Route exact path="/Index/Mine" component={Mine} />
-              <Route exact path="/Index/Mine/MyDemo" component={MyDemo} />
-              {/* </Switch> */}
-            </Content>
-          </Layout>
-        </Content>
-
-        <Footer style={{ textAlign: "center" }}>
-          Design by{" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://github.com/liyaocool"
-          >
-            liyaocool
-          </a>
-        </Footer>
-      </Layout>
+      <Breadcrumb.Item key={url}>
+        <Link to={url}>{breadcrumbNameMap[url]}</Link>
+      </Breadcrumb.Item>
     );
-  }
+  });
+  return (
+    <Layout>
+      <Header className="header">
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["1"]}
+          style={{ lineHeight: "64px" }}
+        >
+          <Menu.Item key="1">
+            <Link to={{ pathname: "/", params: { abc: "abc" } }}>
+              React Dome
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="2">
+            <Link to={{ pathname: "/User", params: { abc: "abc" } }}>用户</Link>
+          </Menu.Item>
+        </Menu>
+      </Header>
+
+      <Content style={{ padding: "0 50px" }}>
+        <Breadcrumb style={{ margin: "16px 0" }}>{breadcrumbItems}</Breadcrumb>
+
+        <Layout style={{ padding: "24px 0", background: "#fff" }}>
+          <Sider width={200} style={{ background: "#fff" }}>
+            <SideMenu />
+          </Sider>
+          <Content style={{ padding: "0 24px", minHeight: 500 }}>
+            {/* <Switch> */}
+            <Route exact path="/Index" component={Home} />
+            <Route exact path="/Index/MyPlugin" component={MyPlugin} />
+            <Route exact path="/Index/MyStyle" component={MyStyle} />
+            <Route exact path="/Index/Mine" component={Mine} />
+            <Route exact path="/Index/Mine/MyDemo" component={MyDemo} />
+            {/* </Switch> */}
+          </Content>
+        </Layout>
+      </Content>
+
+      <Footer style={{ textAlign: "center" }}>
+        Design by{" "}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://github.com/liyaocool"
+        >
+          liyaocool
+        </a>
+      </Footer>
+    </Layout>
+  );
 }
 
 const IndexWithRouter = withRouter(Index);

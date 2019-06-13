@@ -1,68 +1,62 @@
-import React, { useState, useRef } from "react";
-import {connect} from 'react-redux'
-import "./index.css";
-import {INCREMENT} from '../../../store/action/index.js'
-// import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
+import React, { useState, memo, useCallback } from "react";
 
-function MyDemo(props) {
-  const [List, setList] = useState([
-    {
-      title: "测试标题1"
-    },
-    {
-      title: "测试标题2"
-    }
-  ]);
-  const myInput = useRef(null);
-
-  const addList = () => {
-    let obj = {
-      title: myInput.current.value
-    };
-    setList([...List, obj]);
-    console.log(List)
-  };
-  const deleteItem = index => {
-    let newList = List.filter((value, key) => {
-      return key === index ? false : true;
+const Child = memo(props => {
+  const { list, setList } = props;
+  //删除某项
+  function deleteItem(index) {
+    let newList = list.filter((item, key) => {
+      if (key === index) {
+        return false;
+      } else {
+        return true;
+      }
     });
     setList([...newList]);
-    console.log(List)
-  };
-  const listItem = List.map((item, index) => {
+  }
+  //循环列表
+  const listItem = list.map((item, index) => {
     return (
-      <li key={index} className="list_item">
-        <span>{item.title}</span>
-        <button onClick={() => deleteItem(index)}>删除</button>
+      <li
+        key={index}
+        style={{
+          border: "1px solid #333",
+          margin: "20px 0",
+          display: "flex",
+          justifyContent: "space-around"
+        }}
+      >
+        <span>{index + 1}.</span>
+        <span>{item}</span>
+        <button onClick={() => deleteItem(index)}>删除-</button>
       </li>
     );
   });
-
   return (
-    <>
-      <input ref={myInput} />
-      <button onClick={addList}>增加</button>
-      <h1>示例列表</h1>
-      <h1>{props.count}</h1>
-      <button onClick={props.onIncreaseClick}>增加store</button>
-      <div>
-        <ul>{listItem}</ul>
-      </div>
-    </>
+    <div
+      style={{ border: "1px solid #777", padding: "20px", margin: "20px 0" }}
+    >
+      <h1>Child(子组件)</h1>
+      <ul>{listItem}</ul>
+    </div>
+  );
+});
+function MyDemo(props) {
+  const [input, setInput] = useState("");
+  const [list, setList] = useState([]);
+  const ChildCallBack = useCallback(Child, [list, setList]);
+  function addItem() {
+    setList([...list, input]);
+  }
+  return (
+    <div
+      style={{ border: "1px solid #111", padding: "20px", margin: "20px 0" }}
+    >
+      <h1>MyDemo(父组件): {input}</h1>
+      <input value={input} onChange={e => setInput(e.target.value)} />
+      <button onClick={addItem}>添加事项+</button>
+      <ChildCallBack list={list} setList={setList} />
+    </div>
   );
 }
-function mapStateToProps(state) {
-  return {
-    count: state.count
-  }
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    onIncreaseClick: () => dispatch(INCREMENT)
-  }
-}
-MyDemo = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyDemo)
+
 export default MyDemo;
