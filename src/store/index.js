@@ -1,16 +1,5 @@
 import { createStore } from "redux";
-
-function counter(state = { count: 0 }, action) {
-  let count = state.count;
-  switch (action.type) {
-    case "INCREMENT":
-      return { count: count + 1 };
-    case "DECREMENT":
-      return { count: count - 1 };
-    default:
-      return state;
-  }
-}
-
-const store = createStore(counter);
+import reducers from "./reducers/index";
+// import reducers from "./reducers/CountReducer";
+const store = createStore(reducers, window.STATE_FROM_SERVER);
 export default store;
