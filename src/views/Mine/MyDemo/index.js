@@ -1,5 +1,5 @@
 import React, { useState, memo, useEffect, useCallback } from "react";
-import { INCREMENT, ADD_NUM } from "../../../store/actions";
+import { INCREMENT, ADD_NUM } from "@/store/actions";
 import { connect } from "react-redux";
 //store映射给props
 function mapStateToProps({ countReducer, numberReducer }) {

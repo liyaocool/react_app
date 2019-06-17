@@ -4,7 +4,21 @@ import React, {
   useRef,
   useImperativeHandle
 } from "react";
-
+import { INCREMENT, ADD_NUM } from "@/store/actions";
+import { connect } from "react-redux";
+//store映射给props
+function mapStateToProps({ countReducer, numberReducer }) {
+  return {
+    count: countReducer.count,
+    num: numberReducer.num
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    increment: () => dispatch(INCREMENT),
+    addNum: () => dispatch(ADD_NUM)
+  };
+}
 //子组件
 function ChildComp(props, ref) {
   function HaHa() {
@@ -25,7 +39,7 @@ function ChildComp(props, ref) {
 let Child = forwardRef(ChildComp);
 
 //父组件
-export default function Home(props, ref) {
+function MyHome(props, ref) {
   const [count, setCount] = useState(0);
   const child_test = useRef(null);
   const my_ref = useRef(null);
@@ -46,7 +60,8 @@ export default function Home(props, ref) {
       <h1>Home页面</h1>
       <hr />
       <p>我是父组件</p>
-      <h1>计数:{count}</h1>
+      <h1>state计数:{count}</h1>
+      <h1>store计数:{props.count}</h1>
       <button onClick={toFocus}>父组件按钮</button>
       <input
         ref={child_test}
@@ -58,3 +73,10 @@ export default function Home(props, ref) {
     </div>
   );
 }
+
+const Home = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyHome);
+
+export default Home;
