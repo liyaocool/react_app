@@ -1,11 +1,14 @@
+import * as types from "../actions_types";
+
 const initialState = {
   num: 1
 };
 function NumberReducer(state = initialState, action) {
-  let num = state.num;
   switch (action.type) {
-    case "ADD_NUM":
-      return { num: num + 1 };
+    case types.SET_NUM:
+      return { num: action.num };
+    case types.ADD_NUM:
+      return { num: state.num + 1 };
     default:
       return state;
   }

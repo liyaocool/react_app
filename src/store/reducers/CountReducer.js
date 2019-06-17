@@ -1,3 +1,5 @@
+import * as types from "../actions_types";
+
 const initialState = {
   count: 0
 };
@@ -5,9 +7,9 @@ const initialState = {
 function CountReducer(state = initialState, action) {
   let count = state.count;
   switch (action.type) {
-    case "INCREMENT":
+    case types.INCREMENT:
       return { count: count + 1 };
-    case "DECREMENT":
+    case types.DECREMENT:
       return { count: count - 1 };
     default:
       return state;

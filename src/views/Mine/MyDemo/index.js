@@ -1,5 +1,5 @@
 import React, { useState, memo, useEffect, useCallback } from "react";
-import { INCREMENT, ADD_NUM } from "@/store/actions";
+import { increment, addNum, setNum } from "@/store/actions";
 import { connect } from "react-redux";
 //store映射给props
 function mapStateToProps({ countReducer, numberReducer }) {
@@ -10,8 +10,11 @@ function mapStateToProps({ countReducer, numberReducer }) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    increment: () => dispatch(INCREMENT),
-    addNum: () => dispatch(ADD_NUM)
+    increment: () => dispatch(increment),
+    addNum: () => dispatch(addNum),
+    setNum: () => {
+      dispatch(setNum(3));
+    }
   };
 }
 const Child = memo(props => {
@@ -76,6 +79,7 @@ function Demo(props) {
       </h1>
       <button onClick={props.increment}>递增count</button>
       <button onClick={props.addNum}>递增num</button>
+      <button onClick={props.setNum}>设置num</button>
       <br />
       <input value={input} onChange={e => setInput(e.target.value)} />
       <button onClick={addItem}>添加事项+</button>

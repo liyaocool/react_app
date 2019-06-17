@@ -4,7 +4,7 @@ import React, {
   useRef,
   useImperativeHandle
 } from "react";
-import { INCREMENT, ADD_NUM } from "@/store/actions";
+import { increment, addNum } from "@/store/actions";
 import { connect } from "react-redux";
 //store映射给props
 function mapStateToProps({ countReducer, numberReducer }) {
@@ -15,8 +15,8 @@ function mapStateToProps({ countReducer, numberReducer }) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    increment: () => dispatch(INCREMENT),
-    addNum: () => dispatch(ADD_NUM)
+    increment: () => dispatch(increment),
+    addNum: () => dispatch(addNum(3))
   };
 }
 //子组件
@@ -61,7 +61,7 @@ function MyHome(props, ref) {
       <hr />
       <p>我是父组件</p>
       <h1>state计数:{count}</h1>
-      <h1>store计数:{props.count}</h1>
+      <h1>store的num计数:{props.num}</h1>
       <button onClick={toFocus}>父组件按钮</button>
       <input
         ref={child_test}

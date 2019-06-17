@@ -152,7 +152,7 @@ function Index(props) {
         >
           <Menu.Item key="1">
             <Link to={{ pathname: "/", params: { abc: "abc" } }}>
-              React Dome
+              React Demo
             </Link>
           </Menu.Item>
           <Menu.Item key="2">
