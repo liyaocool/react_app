@@ -88,6 +88,7 @@
     ]
   },
   "devDependencies": {
+    "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.12.0"
   },
   "jest": {
