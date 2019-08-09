@@ -1,8 +1,7 @@
-import * as types from "../actions_types";
+import * as testActions from "./testActions";
+import * as userActions from "./userActions";
 
-export const increment = { type: types.INCREMENT };
-export const decrement = { type: types.DECREMENT };
-export const addNum = { type: types.ADD_NUM };
-export function setNum(new_num) {
-  return { type: types.SET_NUM, num: new_num };
-}
+export default {
+  ...userActions,
+  ...testActions
+};

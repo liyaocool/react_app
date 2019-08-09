@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
-import countReducer from "./CountReducer";
-import numberReducer from "./NumberReducer";
+import CountReducer from "./CountReducer";
+import NumberReducer from "./NumberReducer";
+import UserReducer from "./UserReducer";
 
 const reducers = combineReducers({
-  countReducer,
-  numberReducer
+  CountReducer,
+  NumberReducer,
+  UserReducer
 });
 export default reducers;
