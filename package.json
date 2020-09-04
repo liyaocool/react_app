@@ -90,7 +90,7 @@
   },
   "devDependencies": {
     "mockjs": "^1.0.1-beta3",
-    "node-sass": "^4.12.0"
+    "node-sass": "^4.13.1"
   },
   "jest": {
     "collectCoverageFrom": [
